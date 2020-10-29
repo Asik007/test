@@ -1,0 +1,71 @@
+<html>
+    <body>
+        <style>
+            
+            body {
+                margin: 0;
+            }
+            #controls {
+                z-index: 10;
+                position: absolute;
+            }
+            #pulser {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background: red;
+                animation-name: pulser;
+                animation-duration: 0.0s;
+                animation-iteration-count: infinite;
+                animation-direction: alternate;
+            }
+            @keyframes pulser {
+                0%   {background-color: red;}
+                37%   {background-color: red;}
+                37.5%   {background-color: white;}
+                100%   {background-color: white;}
+            }
+        </style>
+        
+        
+        <div id="controls">
+            <span id="BPM">10</span>BPM
+            <input value="10" min="1" max="200" oninput="setHertz(this)" type="range" step="1">
+            <form>
+             <input type="number" id="route" name="route"  value="12345">
+             <input type= "submit" oninput="myFunction(route)" >
+             
+            </form>
+           
+           <script>
+                function myFunction() {
+                   var roue = getElementById(route)
+                    document.getElementById("route").innerHTML = "write me to the screen";
+                  var x = document.getElementById("myInput").value;
+                  document.getElementById("demo").innerHTML = "You wrote: " + x;
+                  console.log(roue);
+                }
+                </script>
+            
+        </div>
+        <script>   
+                    //convert number to a string, then extract the first digit
+                    var one = String(route).charAt(0);
+                    
+
+                    // convert the first digit back to an integer
+                    var stage = Number(one); 
+                    console.log(stage);
+            </script> 
+        <div id="pulser"></div>
+        <script>
+            function setHertz(ele) {
+                var BPM = ele.value;
+                document.getElementById('BPM').innerText = BPM;
+                var seconds = 1 / ((parseInt(BPM))/60) / 2;
+                console.log(seconds)
+                document.getElementById('pulser').style.animationDuration = seconds + 's'
+            }
+        </script>
+    </body>
+</html>
