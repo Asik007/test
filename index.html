@@ -4,6 +4,7 @@
             
             body {
                 margin: 0;
+                
             }
             #controls {
                 z-index: 10;
@@ -29,43 +30,120 @@
         
         
         <div id="controls">
-            <span id="BPM">10</span>BPM
+            <!--
+                <span id="BPM"> &ensp; 10</span>BPM
             <input value="10" min="1" max="200" oninput="setHertz(this)" type="range" step="1">
-            <form>
-             <input type="number" id="route" name="route"  value="12345">
-             <input type= "submit" oninput="myFunction(route)" >
-             
-            </form>
-           
-           <script>
-                function myFunction() {
-                  
-                    
-                  var x = document.getElementById("myInput").value;
-                  document.getElementById("demo").innerText = "You wrote: " + x;
-                  console.log(x);
-                }
-                </script>
+            <br>
+            Set routine: <span id= "routine"> </span>
+        -->
+        <br>
+            <input type="number" id="route" name="route"  value="1">
+            <input type= "number" id= "interval" name="interval" value="1"> in minutes
+            
+            <br>
+            <button name="run" onclick="myFunction()"> Run </button>
+            <button name ="idk" onclick = "findAllVariables()" > debugg</button>
+
+            <pre><p style="font-family:courier new;font-size:15px">
+            To set the routine:
+                1.Set the interval
+                2. Convert the stages you want into numbers
+                    1 = gray
+                    2 = blue
+                    3 = green
+                    4 = yellow
+                    5 = red
+            </pre></p>
             
         </div>
-        <script>   
-                    //convert number to a string, then extract the first digit
-                    var one = String(route).charAt(0);
-                    
+        <script>
+        function myFunction() {
+            x = document.querySelector("#route").value
+            var l =x.toString.lenght
+            
+           num = document.querySelector("#interval").value; 
+           console.log("it ran")
+           mid =  num.toString().length;
+        }
+       </script>
+       <script type="text/javascript"> 
+        function findAllVariables() { 
+            for (let variable in window) { 
+                if (window.hasOwnProperty(variable)) { 
+                    console.log(variable); 
+                } 
+            }
+        }
+       </script>
+        <script>
+        
+           
+            var x = document.querySelector("#route").value
+            var num = document.querySelector("#interval").value;
+            
+        
+        
+            var l = 0
+            var zone = 0
+            var min = 0
+            var pos = 0
+            setInterval(function(){
+                
+                 
+                
 
-                    // convert the first digit back to an integer
-                    var stage = Number(one); 
-                    console.log(stage);
-            </script> 
+            
+            switch (zone) {
+                    case 1:
+                        min = 94
+                        
+                        
+                        break
+                    case 2:
+                        min = 114
+                    
+                        break
+                    case 3:
+                        min = 133
+                    
+                        break
+                    case 4:
+                        min = 152
+                        
+                        break
+                    case 5:
+                        min = 171
+                      
+                        break
+                }
+                setInterval(function() {
+                    stage = Math.floor((Math.random()*20)+min);
+                    console.log(x+"route"+zone+"zone"+min+"min"+pos+"pos"+num+"num"+l+"l"+stage+"stage")
+            }, 100)
+                stage = Math.floor((Math.random()*20)+min);
+            
+            digit = parseInt((x + '').charAt(pos));
+                zone = Number(digit);
+               if(zone>pos) 
+               ++pos
+            }, 1000);
+           
+                
+            </script>
         <div id="pulser"></div>
         <script>
             function setHertz(ele) {
                 var BPM = ele.value;
                 document.getElementById('BPM').innerText = BPM;
                 var seconds = 1 / ((parseInt(BPM))/60) / 2;
+                if (l < num ){
+                    seconds == stage
+                }
                 console.log(seconds)
                 document.getElementById('pulser').style.animationDuration = seconds + 's'
             }
         </script>
+        
+        
     </body>
 </html>
