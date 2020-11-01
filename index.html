@@ -16,7 +16,7 @@
                 height: 100%;
                 background: red;
                 animation-name: pulser;
-                animation-duration: 0.0s;
+                animation-duration: 00;
                 animation-iteration-count: infinite;
                 animation-direction: alternate;
             }
@@ -32,16 +32,16 @@
         <div id="controls">
             
                 <span id="BPM"> &ensp; 10</span>BPM
-            <input value="10" min="1" max="200" oninput="setHertz(this)" type="range" step="1">
+            <input value="10" min="1" max="200" oninput="setHertz(this)" type="range" step="1" name= "slide" id= "slide">
             <br>
             Set routine: <span id= "routine"> </span>
-       
+        
         <br>
             <input type="number" id="route" name="route"  value="1">
             <input type= "number" id= "interval" name="interval" value="1"> in minutes
             
             <br>
-            <button name="run" onclick="myFunction()"> Run </button>
+            <button name="run" onclick="myFunction();setHertz()"> Run </button>
             <button name ="idk" onclick = "findAllVariables()" > debugg</button>
 
             <pre><p style="font-family:courier new;font-size:15px">
@@ -57,11 +57,16 @@
             
         </div>
         <script>
+           
+            
         function myFunction() {
             x = document.querySelector("#route").value
-            var l =x.toString.lenght
+            
+            var l = (Math.floor( Math.log(x) / Math.LN10 ) + 1);
+            
             
            num = document.querySelector("#interval").value; 
+           pos = 0
            console.log("it ran")
            mid =  num.toString().length;
         }
@@ -77,13 +82,15 @@
        </script>
         <script>
         
-           
+            
+            
             var x = document.querySelector("#route").value
             var num = document.querySelector("#interval").value;
-            
+            var l = (Math.floor( Math.log(x) / Math.LN10 ) + 1);
         
-        
-            var l = 0
+            var rate = document.querySelector("#slide");
+            var stage = 0
+            var f = 0
             var zone = 0
             var min = 0
             var pos = 0
@@ -93,52 +100,41 @@
                 
 
             
-            switch (zone) {
-                    case 1:
-                        min = 94
-                        
-                        
-                        break
-                    case 2:
-                        min = 114
-                    
-                        break
-                    case 3:
-                        min = 133
-                    
-                        break
-                    case 4:
-                        min = 152
-                        
-                        break
-                    case 5:
-                        min = 171
-                      
-                        break
-                }
-                setInterval(function() {
-                    stage = Math.floor((Math.random()*20)+min);
-                    console.log(x+"route"+zone+"zone"+min+"min"+pos+"pos"+num+"num"+l+"l"+stage+"stage")
-            }, 100)
-                stage = Math.floor((Math.random()*20)+min);
             
-            digit = parseInt((x + '').charAt(pos));
+                setInterval(function() {
+                    stage = Math.floor((Math.random()*20)+((zone*20)+70));
+
+                    console.log(x+"route"+zone+"zone"+min+"min"+pos+"pos"+num+"num"+l+"l"+stage+"stage"+rate+"BPM")
+            }, 2000)
+                
+            
+            
+                digit = parseInt((x + '').charAt(pos));
                 zone = Number(digit);
-               if(zone>pos) 
+               if(zone>pos){ 
                ++pos
+        }
+        else{
+            zone = 0}
             }, 1000);
            
                 
             </script>
         <div id="pulser"></div>
         <script>
-            function setHertz(ele) {
-                var BPM = ele.value;
-                document.getElementById('BPM').innerText = BPM;
-                var seconds = 1 / ((parseInt(BPM))/60) / 2;
-                if (l < num ){
-                    seconds == stage
+            function setHertz() {
+                var rate = document.querySelector("#slide").value;
+                
+                document.getElementById('BPM').innerText = rate;
+                if (zone > 0){
+                    f = stage
                 }
+                if(zone = 0){
+                    f = (parseInt(BPM))
+                }
+               
+                var seconds = 60 / (f);
+                
                 console.log(seconds)
                 document.getElementById('pulser').style.animationDuration = seconds + 's'
             }
